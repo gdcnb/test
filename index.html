@@ -9,14 +9,26 @@
     <button onclick="submit()">submit</button>
     <script>
       function submit(){
-        var form = document.createElement('form');
-        form.action = 'https://www.baidu.com';
-        form.method = 'post';
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'key';
-        input.value = '123';
-        form.appendChild(input);
+        var formData = {"data":{"method":"post","url":"https://mapi.alipay.com/gateway.do","params":[{"name":"ord_time_ext","value":"2015-07-27 18:50:59"},{"name":"ord_name","value":""},{"name":"ord_desc","value":""},{"name":"notify_url","value":"http://epay.12306.cn/pay/payResponse?TRANS_ID=W2015072772095133&bankId=33000010"},{"name":"sign","value":"Gk5NAnp7ymFYfGN/VR8uhFpfaqTNRiBW3nJ3xqHP2vya8pZY/CJ7GUXxH+WuzkZDPgtIRnA+rxn7m4rWMmtjJgwlOtqXMorri6n2W3dTABJB46QHBBs01TJiL5MNT3Yzs5AXQjFpUSoCzKpwf/+31JhlwoGCwA//1RFclNG2YIb73FFp5jccd8nI5KhVyS8YkoSPPAY9ulj22GFCQJME4c439uYgt3WCriYNn+RZvtCSGxfgQnB6JelQIbr9KGi3ZdX8jeLxeZMGH5kOcSeKWge5URZTj+IGclj8Nsu5Az9LXc6UXmbmaGbid7njWvShLhJBlW4I+VmC2QRAijunfQ=="},{"name":"ord_amt","value":"8.00"},{"name":"service","value":"alipay.acquire.mr.ord.createandpay"},{"name":"partner","value":"2088011519249952"},{"name":"dispatch_cluster_target","value":"mrmapi"},{"name":"ord_cur","value":"CNY"},{"name":"ord_pmt_timeout","value":"2015-07-27 19:11:57"},{"name":"req_access_type","value":"web"},{"name":"_input_charset","value":"UTF-8"},{"name":"ord_id_ext","value":"W2015072772095133"},{"name":"sign_type","value":"RSA"},{"name":"return_url","value":"http://epay.12306.cn/pay/payResponse?TRANS_ID=W2015072772095133&bankId=33000010"},{"name":"req_client_ip_ext","value":"14.152.64.74"}]}};
+        var pay = {
+          createFrom: function (formData) {
+            var win = window;
+            var doc = win.document;
+            var form = doc.createElement('form');
+            form.setAttribute('action', formData.url);
+            form.setAttribute('method', formData.method || 'post');
+            //form.setAttribute('target', '_blank');
+            _.each(formData.params, function (item) {
+              var input =  doc.createElement('input');
+              input.setAttribute('type', 'hidden');
+              input.setAttribute('name', item.name);
+              input.setAttribute('value', item.value);
+              form.appendChild(input);
+            });
+            return form;
+          }
+        };
+        var form = pay.createFrom(formData);
         form.submit();
       }
     </script>
