@@ -6,10 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <form action="htts://www.baidu.com" method="post">
-      <input type="text" name="word"/>
-      <input type="submit" value="submit"/>
-    </form>
+    <button onclick="submit()">submit</button>
+    <script>
+      function submit(){
+        var form = document.createElement('form');
+        form.action = 'https://www.baidu.com';
+        form.method = 'post';
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'key';
+        input.value = '123';
+        form.appendChild(input);
+        form.submit();
+      }
+    </script>
   </body>
 </html>
-
